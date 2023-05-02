@@ -40,11 +40,35 @@ function calculate_daily() {
 
 function update_ui() {
     calculate_daily();
+
+    save();
 }
 
-function make_goal() {
-    let text = prompt("Write a goal:");
-    if (text == "" || text == undefined) return
+function save() {
+    let goals_save = {};
+    let goals = document.getElementsByClassName("goal");
+
+    for (let i = 0; i < goals.length; i++) {
+        let text = goals[i].textContent;
+        goals_save[text] = goals[i].lastChild.checked;
+    }
+
+    window.localStorage.setItem("daily_goals", JSON.stringify(goals_save));
+}
+
+function load() {
+    let goals_save = JSON.parse(window.localStorage.getItem("dailyGoals"));
+    let keys = goals_save.keys;
+
+    for (let i = 0; i < keys.length; i++) {
+        make_goal(keys[i], goals_save[keys[i]]);
+    }
+}
+
+function make_goal(text=undefined, done=false) {
+
+    if (text == undefined) text = prompt("Write a goal:");
+    if (text == "" || text == undefined) return;
 
     let goal = document.createElement("div");
 
@@ -54,6 +78,7 @@ function make_goal() {
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.onclick = function() { update_ui() };
+    checkbox.checked = done;
 
     goal.appendChild(checkbox);
 
@@ -62,4 +87,5 @@ function make_goal() {
     update_ui();
 }
 
+load();
 update_ui();
