@@ -29,7 +29,7 @@ function calculate_daily() {
         {backgroundColor: daily_bar.style.backgroundColor},
         {backgroundColor: color}
     ], {
-        duration: 500,
+        duration: 200,
         iterations: 1
     });
 
@@ -57,8 +57,8 @@ function save() {
 }
 
 function load() {
-    let goals_save = JSON.parse(window.localStorage.getItem("dailyGoals"));
-    let keys = goals_save.keys;
+    let goals_save = JSON.parse(window.localStorage.getItem("daily_goals"));
+    let keys = Object.keys(goals_save);
 
     for (let i = 0; i < keys.length; i++) {
         make_goal(keys[i], goals_save[keys[i]]);
@@ -86,6 +86,8 @@ function make_goal(text=undefined, done=false) {
 
     update_ui();
 }
+
+// window.localStorage.clear()
 
 load();
 update_ui();

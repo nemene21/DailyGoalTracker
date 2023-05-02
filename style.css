@@ -60,6 +60,7 @@ body {
     width:  42px;
     height: 42px;
     pointer-events: none;
+    user-select: none;
 }
 
 .goal {
