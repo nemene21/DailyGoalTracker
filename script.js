@@ -2,6 +2,7 @@
 let body = document.getElementsByTagName("body")[0];
 let new_goal_button = document.getElementById("new_goal_button");
 
+
 function make_goal() {
     let text = prompt("Write a goal:");
     if (text == "" || text == undefined) return
