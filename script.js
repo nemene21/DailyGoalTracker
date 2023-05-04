@@ -6,6 +6,9 @@ let daily_bar   = document.getElementById("daily_bar");
 let alltime_bar = document.getElementById("alltime_bar");
 let weekly_bar  = document.getElementById("weekly_bar");
 
+let daily_score;
+let percentages = [];
+
 function lerp(a, b, c) {
     return a + (b - a) * c
 }
@@ -22,6 +25,8 @@ function calculate_daily() {
 
     let ratio = score / goals.length;
     color = "rgb(" + String(94 * ratio) + " " + String(lerp(69, 195, ratio)) + " " + String(lerp(171, 100, ratio)) + ")";
+
+    daily_score = ratio;
 
     daily_bar.textContent = String(Math.floor(ratio * 100) + "%");
 
@@ -53,6 +58,17 @@ function save() {
         goals_save[text] = goals[i].lastChild.checked;
     }
 
+    let day = new Date().getDate();
+    let last_day = window.localStorage.getItem("last_day");
+
+    if (day != last_day) {
+        percentages.push(daily_score);
+    } else {
+        percentages[percentages.length - 1] = daily_score
+    }
+    window.localStorage.setItem("last_day", day)
+    window.localStorage.setItem("days", percentages.join(" "));
+
     window.localStorage.setItem("daily_goals", JSON.stringify(goals_save));
 }
 
@@ -63,6 +79,9 @@ function load() {
     for (let i = 0; i < keys.length; i++) {
         make_goal(keys[i], goals_save[keys[i]]);
     }
+
+    percentages = window.localStorage.getItem("days").split(" ");
+    console.log(percentages);
 }
 
 function make_goal(text=undefined, done=false) {
@@ -83,8 +102,6 @@ function make_goal(text=undefined, done=false) {
     goal.appendChild(checkbox);
 
     body.insertBefore(goal, new_goal_button);
-
-    update_ui();
 }
 
 // window.localStorage.clear()

@@ -115,7 +115,7 @@ body {
 .bar {
     width: 256; height: 48px;
     line-height: 48px;
-    margin-bottom: 12px;
+    margin-bottom: 12px; 
 
     text-align: center;
     font-size: x-large;
