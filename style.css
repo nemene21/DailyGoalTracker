@@ -124,3 +124,22 @@ body {
 
     animation-fill-mode: forwards;
 }
+
+.delete_button {
+    width:  32px;
+    height: 32px;
+    display: inline-block;
+    padding-right: 20px;
+
+    transform: scale(1);
+
+    transition: all 0.1s;
+}
+
+.delete_button:hover {
+    transform: scale(1.2);
+}
+
+.delete_button:active {
+    transform: scale(1.33);
+}
