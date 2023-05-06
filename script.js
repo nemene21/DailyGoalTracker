@@ -103,7 +103,7 @@ function calculate_weekly() {
 function update_ui() {
     calculate_daily();
     save();
-    console.log(percentages)
+
     calculate_alltime();
     calculate_weekly();
 }
@@ -155,7 +155,6 @@ function make_goal(text=undefined, done=false) {
     delete_button.src = "assets/delete.svg";
     delete_button.onclick = function() {
         goal.remove();
-        console.log("when the");
         update_ui();
     }
     goal.appendChild(delete_button);
